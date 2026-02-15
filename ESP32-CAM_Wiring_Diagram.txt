@@ -1,0 +1,85 @@
+ESP32-CAM WIRING DIAGRAM
+========================
+
+PROGRAMMING MODE (for uploading code):
+--------------------------------------
+
+    FTDI Programmer                ESP32-CAM Board
+    ---------------                ---------------
+    
+    GND --------------------------> GND
+    5V ---------------------------> 5V
+    TX ---------------------------> U0R (RX pin)
+    RX ---------------------------> U0T (TX pin)
+    
+    ** IMPORTANT FOR PROGRAMMING **
+    GPIO 0 -----------------------> GND (connect ONLY when uploading)
+    
+    
+    [FTDI USB] --- [Computer]
+
+
+RUNNING MODE (normal operation):
+---------------------------------
+
+    Power Supply                   ESP32-CAM Board
+    ------------                   ---------------
+    
+    5V+ --------------------------> 5V
+    GND --------------------------> GND
+    
+    ** IMPORTANT FOR RUNNING **
+    GPIO 0 -----------------------> NOT CONNECTED (remove jumper!)
+    
+    Optional: Add 100-470µF capacitor between 5V and GND
+
+
+PIN FUNCTIONS (for reference):
+-------------------------------
+
+ESP32-CAM Pin Layout:
+                   _______________
+                  |               |
+    GND ----------| •           • |---------- 5V
+    GPIO 12 ------| •           • |---------- GND  
+    GPIO 13 ------| •           • |---------- GPIO 2
+    GPIO 15 ------| •    CAM    • |---------- GPIO 14
+    GPIO 1 (TX) --| •           • |---------- GPIO 15
+    GPIO 3 (RX) --| •           • |---------- GPIO 4 (Flash LED)
+    GPIO 0 -------| •           • |---------- GPIO 16
+                  |_______________|
+                  
+Camera Module Connection:
+- Camera ribbon cable connects to the slot on top
+- Make sure the blue side faces UP (towards the camera lens)
+- Press connector firmly until it clicks
+
+
+POWER REQUIREMENTS:
+-------------------
+✓ Voltage: 5V DC
+✓ Current: Minimum 1A (1.5A recommended)
+✓ During camera operation, current can spike to 500mA+
+✓ FTDI programmer alone may NOT provide enough power
+✓ Use dedicated 5V power supply for reliable operation
+
+
+TROUBLESHOOTING CONNECTIONS:
+-----------------------------
+1. Double-check TX -> RX and RX -> TX (they cross over!)
+2. Ensure GND is connected on both boards
+3. GPIO 0 to GND ONLY during upload, remove after
+4. Camera cable: blue side UP, connector fully seated
+5. Use thicker wires for power (20-22 AWG recommended)
+
+
+UPLOAD PROCEDURE:
+-----------------
+1. Wire everything including GPIO 0 to GND
+2. Connect USB to computer
+3. Select board and port in Arduino IDE
+4. Click Upload
+5. When you see "Connecting..." press RESET button
+6. Wait for upload to complete
+7. DISCONNECT GPIO 0 from GND
+8. Press RESET button to run program
